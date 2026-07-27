@@ -1,0 +1,133 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --electric: #1265f5;
+  --deep-blue: #06162e;
+  --tech-black: #020817;
+}
+
+@layer base {
+  * {
+    @apply border-white/10;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-tech-black text-white/90 font-sans antialiased;
+    background-image: radial-gradient(
+      circle at 50% -10%,
+      rgba(18, 101, 245, 0.18),
+      transparent 55%
+    );
+    background-attachment: fixed;
+  }
+
+  /* Respeitar a preferência de redução de movimento do utilizador. */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  ::selection {
+    background: rgba(18, 101, 245, 0.4);
+    color: #fff;
+  }
+
+  /* Foco visível para acessibilidade por teclado. */
+  :focus-visible {
+    outline: 2px solid var(--electric);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+}
+
+@layer components {
+  .container-page {
+    @apply mx-auto w-full max-w-7xl px-5 sm:px-8 lg:px-10;
+  }
+
+  .eyebrow {
+    @apply inline-flex items-center gap-2 rounded-full border border-electric/30 bg-electric/10 px-4 py-1.5 text-xs font-medium uppercase tracking-[0.18em] text-brand-200;
+  }
+
+  .heading-gradient {
+    @apply bg-gradient-to-br from-white via-white to-brand-300 bg-clip-text text-transparent;
+  }
+
+  /* Superfície de vidro reutilizável para cartões. */
+  .glass {
+    @apply rounded-2xl border border-white/10 bg-white/[0.03] backdrop-blur-sm;
+  }
+
+  .glass-strong {
+    @apply rounded-2xl border border-white/10 bg-deep-blue/40 backdrop-blur-md;
+  }
+
+  /* Botão primário com brilho. */
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-electric px-6 py-3 text-sm font-semibold text-white shadow-glow transition-all duration-300 hover:-translate-y-0.5 hover:bg-brand-400 hover:shadow-glow-lg focus-visible:-translate-y-0.5;
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 rounded-full border border-white/15 bg-white/[0.02] px-6 py-3 text-sm font-semibold text-white/90 transition-all duration-300 hover:-translate-y-0.5 hover:border-electric/50 hover:bg-white/[0.06];
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  /* Efeito de perspetiva 3D para cartões que reagem ao cursor. */
+  .card-3d {
+    transform-style: preserve-3d;
+    transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  /* Máscara de esbatimento nas bordas para carrosséis. */
+  .mask-fade-x {
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent,
+      black 8%,
+      black 92%,
+      transparent
+    );
+    mask-image: linear-gradient(
+      to right,
+      transparent,
+      black 8%,
+      black 92%,
+      transparent
+    );
+  }
+}
+
+/* Scrollbar discreta com identidade da marca. */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #020817;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(18, 101, 245, 0.4);
+  border-radius: 999px;
+  border: 2px solid #020817;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(18, 101, 245, 0.7);
+}
