@@ -130,11 +130,6 @@ export default function ProjectPage({
                   Ver no GitHub
                 </a>
               </div>
-
-              <p className="mt-6 rounded-xl border border-amber-400/30 bg-amber-400/10 px-4 py-3 text-xs text-amber-300">
-                Projeto demonstrativo. Substitua por um caso real da LSN Web
-                Studio.
-              </p>
             </div>
           </div>
         </article>

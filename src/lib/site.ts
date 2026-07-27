@@ -10,7 +10,7 @@ export const siteConfig = {
   description:
     "Criamos websites modernos, rápidos, responsivos e personalizados para ajudar empresas a crescer no mundo digital.",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://lsnwebstudio.com",
-  githubUsername: process.env.NEXT_PUBLIC_GITHUB_USERNAME ?? "SEU-USUARIO",
+  githubUsername: process.env.NEXT_PUBLIC_GITHUB_USERNAME ?? "Ladis2005",
   whatsappLinkBase:
     process.env.NEXT_PUBLIC_WHATSAPP_LINK ??
     "https://wa.me/message/UAVSK3MNPK3RD1",
