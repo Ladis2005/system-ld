@@ -51,7 +51,7 @@ function useRepos() {
 }
 
 export function GitHubSection() {
-  const { repos, isDemo } = useRepos();
+  const { repos } = useRepos();
 
   return (
     <section id="github" className="relative py-24 lg:py-32">
@@ -136,11 +136,6 @@ export function GitHubSection() {
             <h3 className="font-display text-xl font-semibold text-white">
               Repositórios
             </h3>
-            {isDemo && (
-              <span className="rounded-full border border-amber-400/30 bg-amber-400/10 px-3 py-1 text-xs text-amber-300">
-                Projetos demonstrativos
-              </span>
-            )}
           </div>
 
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
