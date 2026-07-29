@@ -82,15 +82,20 @@ export function Contact() {
     setStatus("loading");
 
     try {
-      // Tenta enviar via API interna (configure o serviço de e-mail em
-      // src/app/api/contact/route.ts). Se falhar, usa o fallback mailto.
-      await fetch("/api/contact", {
+      const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
       }).catch(() => null);
 
-      // Fallback prático: abre o cliente de e-mail com os dados preenchidos.
+      if (res?.ok) {
+        setStatus("success");
+        setForm(initialState);
+        return;
+      }
+
+      // Fallback: se a API falhar (ex. e-mail não configurado), abre o
+      // cliente de e-mail do visitante com os dados preenchidos.
       const subject = encodeURIComponent(
         `Pedido de orçamento — ${form.nome}`,
       );

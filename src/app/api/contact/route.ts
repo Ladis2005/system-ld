@@ -1,16 +1,8 @@
 import { NextResponse } from "next/server";
+import { Resend } from "resend";
 
-/**
- * Endpoint de exemplo para receber o formulário de contacto.
- *
- * Integração de e-mail (escolha uma):
- *  - Resend:   https://resend.com  (recomendado, simples)
- *  - Nodemailer + SMTP
- *  - Formspree / EmailJS (sem backend)
- *
- * O formulário no cliente já está preparado para fazer POST aqui.
- * Descomente e configure conforme o serviço escolhido.
- */
+const resend = new Resend(process.env.RESEND_API_KEY);
+
 export async function POST(request: Request) {
   try {
     const data = await request.json();
@@ -23,16 +15,39 @@ export async function POST(request: Request) {
       );
     }
 
-    // ----- EXEMPLO com Resend (instale `resend` e defina RESEND_API_KEY) -----
-    //
-    // import { Resend } from "resend";
-    // const resend = new Resend(process.env.RESEND_API_KEY);
-    // await resend.emails.send({
-    //   from: "LSN Web Studio <no-reply@lsnwebstudio.com>",
-    //   to: process.env.NEXT_PUBLIC_CONTACT_EMAIL!,
-    //   subject: `Pedido de orçamento — ${data.nome}`,
-    //   text: JSON.stringify(data, null, 2),
-    // });
+    const to = process.env.CONTACT_EMAIL_TO ?? process.env.NEXT_PUBLIC_CONTACT_EMAIL;
+    if (!process.env.RESEND_API_KEY || !to) {
+      return NextResponse.json(
+        { ok: false, error: "Serviço de e-mail não configurado." },
+        { status: 500 },
+      );
+    }
+
+    const { error } = await resend.emails.send({
+      from: process.env.RESEND_FROM ?? "LSN Web Studio <onboarding@resend.dev>",
+      to,
+      replyTo: data.email,
+      subject: `Pedido de orçamento — ${data.nome}`,
+      text: [
+        `Nome: ${data.nome}`,
+        `Empresa: ${data.empresa || "-"}`,
+        `E-mail: ${data.email}`,
+        `WhatsApp: ${data.whatsapp || "-"}`,
+        `Tipo de website: ${data.tipo || "-"}`,
+        `Orçamento: ${data.orcamento || "-"}`,
+        "",
+        "Mensagem:",
+        data.mensagem,
+      ].join("\n"),
+    });
+
+    if (error) {
+      console.error("Resend error:", error);
+      return NextResponse.json(
+        { ok: false, error: "Falha ao enviar o e-mail." },
+        { status: 502 },
+      );
+    }
 
     return NextResponse.json({ ok: true });
   } catch {

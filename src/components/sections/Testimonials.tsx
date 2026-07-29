@@ -31,7 +31,7 @@ export function Testimonials() {
         <SectionHeading
           eyebrow="Testemunhos"
           title="O que dizem sobre o nosso trabalho"
-          description="Avaliações fictícias para demonstração, prontas a substituir por comentários reais dos seus clientes."
+          description="A satisfação dos nossos clientes é a nossa maior referência."
         />
 
         <div className="relative mx-auto mt-14 max-w-3xl">
@@ -76,10 +76,6 @@ export function Testimonials() {
                   <div className="text-sm text-white/50">{active.company}</div>
                 </div>
               </footer>
-
-              <span className="absolute right-5 top-5 rounded-full border border-amber-400/30 bg-amber-400/10 px-2.5 py-0.5 text-[10px] text-amber-300">
-                Demonstrativo
-              </span>
             </motion.blockquote>
           </AnimatePresence>
 
